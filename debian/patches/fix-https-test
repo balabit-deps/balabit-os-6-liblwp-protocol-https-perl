@@ -1,0 +1,19 @@
+Description: Fix https test
+ fix https test after patch
+ 746579-fix-peer-certificate-verification.patch 
+ kinda breaks it.
+Author: dod after carnil
+--- a/t/https_proxy.t
++++ b/t/https_proxy.t
+@@ -66,7 +66,10 @@
+ $ua{noproxy} = LWP::UserAgent->new(
+     keep_alive => 10, # size of connection cache
+     # server does not know the expected name and returns generic certificate
+-    ssl_opts => { verify_hostname => 0 }
++    ssl_opts => {
++        verify_hostname => 0,
++        SSL_ca_file => $cafile,
++    }
+ );
+ 
+ $ua{proxy} = LWP::UserAgent->new(

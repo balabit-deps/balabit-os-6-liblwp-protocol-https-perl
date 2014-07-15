@@ -1,0 +1,5 @@
+disable-test-with-internet
+fix-redirect-proxy-ssl
+cert.patch
+746579-fix-peer-certificate-verification.patch
+fix-https-test

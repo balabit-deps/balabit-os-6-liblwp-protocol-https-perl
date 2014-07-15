@@ -1,0 +1,14 @@
+Description: Explicitly add hostname for SNI to start_SSL 
+Bug: https://github.com/libwww-perl/libwww-perl/issues/57
+Forwarded: https://github.com/libwww-perl/libwww-perl/issues/57
+Author: Steffen Ullrich
+--- a/lib/LWP/Protocol/https.pm
++++ b/lib/LWP/Protocol/https.pm
+@@ -153,6 +153,7 @@
+ 	my ($self,$sock,$url) = @_;
+ 	$sock = LWP::Protocol::https::Socket->start_SSL( $sock,
+ 	    SSL_verifycn_name => $url->host,
++        SSL_hostname => $url->host,
+ 	    $self->_extra_sock_opts,
+ 	);
+ 	$@ = LWP::Protocol::https::Socket->errstr if ! $sock;

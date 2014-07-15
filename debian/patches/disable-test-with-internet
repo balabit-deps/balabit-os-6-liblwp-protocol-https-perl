@@ -1,0 +1,17 @@
+Description: disable-test-with-internet 
+ disable test which tries to connect to apache.org
+ even if this test use LWP::Online to test the 
+ connection. Note that the test does not work
+ behind a proxy without setting PERL_LWP_ENV_PROXY=1
+Author: dod
+--- a/t/apache.t
++++ b/t/apache.t
+@@ -6,6 +6,8 @@
+ use LWP::UserAgent;
+ 
+ my $ua = LWP::UserAgent->new();
++plan skip_all => "No internet available on Debian build systems";
++exit;
+ plan skip_all => "Not online" unless $ua->is_online;
+ 
+ plan tests => 5;
